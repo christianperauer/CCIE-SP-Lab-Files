@@ -1,0 +1,5427 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.9" simulationEngine="OPENSTACK" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.9/virl.xsd">
+    <node name="R21" type="SIMPLE" subtype="CSR1000v" location="1097,243">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:37:57 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R21
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9U9UKRZFP05
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$MS28$4MMu0EsSTVLKqAZSrtRBY/
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.21 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.44 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 192.9.214.21 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+    </node>
+    <node name="R7" type="SIMPLE" subtype="CSR1000v" location="961,243">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:39:03 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R7
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp neighbor 9.9.1.3 password cisco123ldp
+mpls ldp neighbor 9.9.1.8 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+key chain ISISHELLO
+ key 1
+  key-string cisco123hello
+key chain ISISLSP
+ key 1
+  key-string cisco123lsp
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 92AED39SJ3N
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$NqFT$Iz6Kd08fP.AJKG3EokcnX.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.7 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.52 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.37.7 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+interface GigabitEthernet3
+ ip address 9.9.78.7 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+interface GigabitEthernet4
+ ip address 9.9.157.7 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet5
+ no ip address
+ negotiation auto
+!
+router isis as9-isis
+ net 49.0009.0000.0000.0007.00
+ is-type level-2-only
+ advertise passive-only
+ authentication mode md5
+ authentication key-chain ISISLSP
+ metric-style wide
+ passive-interface Loopback0
+ mpls ldp autoconfig
+!
+router bgp 9
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 9
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.7
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.2 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.5 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+    </node>
+    <node name="R5" type="SIMPLE" subtype="CSR1000v" location="587,400">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:38:55 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp neighbor 9.9.1.2 password cisco123ldp
+mpls ldp neighbor 9.9.1.3 password cisco123ldp
+mpls ldp neighbor 9.9.1.4 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+key chain ISISHELLO
+ key 1
+  key-string cisco123hello
+key chain ISISLSP
+ key 1
+  key-string cisco123lsp
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 91H9229LM0Q
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$Ueb8$2W/yST5WM7nqvIQdGUik9.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.5 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.50 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.56.5 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.223.5 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.25.5 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+interface GigabitEthernet5
+ ip address 9.9.45.5 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+interface GigabitEthernet6
+ ip address 9.9.35.5 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+router isis as9-isis
+ net 49.0009.0000.0000.0005.00
+ is-type level-2-only
+ advertise passive-only
+ authentication mode md5
+ authentication key-chain ISISLSP
+ metric-style wide
+ set-overload-bit
+ passive-interface Loopback0
+ mpls ldp autoconfig
+!
+router bgp 9
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  route-reflector-client
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  route-reflector-client
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 9
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.5
+ bgp cluster-id 9
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.3 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.4 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.7 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.8 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.3 activate
+  neighbor 9.9.1.3 send-community extended
+  neighbor 9.9.1.3 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.4 activate
+  neighbor 9.9.1.4 send-community extended
+  neighbor 9.9.1.4 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.7 activate
+  neighbor 9.9.1.7 send-community extended
+  neighbor 9.9.1.7 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.8 activate
+  neighbor 9.9.1.8 send-community extended
+  neighbor 9.9.1.8 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.3 activate
+  neighbor 9.9.1.3 send-community extended
+  neighbor 9.9.1.3 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.4 activate
+  neighbor 9.9.1.4 send-community extended
+  neighbor 9.9.1.4 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.7 activate
+  neighbor 9.9.1.7 send-community extended
+  neighbor 9.9.1.7 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.8 activate
+  neighbor 9.9.1.8 send-community extended
+  neighbor 9.9.1.8 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+        <interface id="4" name="GigabitEthernet6"/>
+    </node>
+    <node name="R20" type="SIMPLE" subtype="CSR1000v" location="294,565">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:38:02 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R20
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 95MSJN6ZIQK
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$7LdG$XrR8saaFdWc3iiXLwtHtR1
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.20 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.43 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet3
+ no ip address
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="R6" type="SIMPLE" subtype="CSR1000v" location="446,400">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:38:58 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R6
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 927337N5BLI
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$bRy8$UPofoBBWQtRbU1CStxUOD.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.6 255.255.255.255
+ ip ospf 1009 area 0.0.0.0
+!
+interface GigabitEthernet1
+ ip address 10.255.0.51 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.106.6 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 1009 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.16.6 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 1009 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.56.6 255.255.255.0
+ negotiation auto
+!
+router ospf 1009
+ router-id 9.9.1.6
+ auto-cost reference-bandwidth 2000
+ area 0.0.0.0 authentication message-digest
+ redistribute connected metric-type 1 subnets route-map connect-to-ospf-export
+ passive-interface Loopback0
+ distribute-list route-map rib-to-ospf in
+ mpls ldp autoconfig
+!
+router bgp 1009
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  route-reflector-client
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  route-reflector-client
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 1009
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.6
+ bgp cluster-id 1009
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.9 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.10 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.9 activate
+  neighbor 9.9.1.9 send-community extended
+  neighbor 9.9.1.9 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.10 activate
+  neighbor 9.9.1.10 send-community extended
+  neighbor 9.9.1.10 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.9 activate
+  neighbor 9.9.1.9 send-community extended
+  neighbor 9.9.1.9 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.10 activate
+  neighbor 9.9.1.10 send-community extended
+  neighbor 9.9.1.10 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+ip prefix-list rib-to-ospf seq 10 permit 0.0.0.0/0 le 32
+!
+!
+route-map connect-to-ospf-export permit 10
+ match interface Loopback0
+!
+route-map rib-to-ospf permit 10
+ match ip address prefix-list rib-to-ospf
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R10" type="SIMPLE" subtype="CSR1000v" location="292,401">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:36:39 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R10
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9HPNUOV9470
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$THKG$XdI5gYafEuToBOCPjZ1F30
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.10 255.255.255.255
+ ip ospf 1009 area 0.0.0.0
+!
+interface GigabitEthernet1
+ ip address 10.255.0.32 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.108.10 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.109.10 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 1009 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.106.10 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 1009 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet5
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet6
+ no ip address
+ negotiation auto
+!
+router ospf 1009
+ router-id 9.9.1.10
+ auto-cost reference-bandwidth 2000
+ area 0.0.0.0 authentication message-digest
+ redistribute connected metric-type 1 subnets route-map connect-to-ospf-export
+ passive-interface Loopback0
+ distribute-list route-map rib-to-ospf in
+ mpls ldp autoconfig
+!
+router bgp 1009
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 1009
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.10
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.1 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.6 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+ip prefix-list rib-to-ospf seq 10 permit 0.0.0.0/0 le 32
+!
+!
+route-map connect-to-ospf-export permit 10
+ match interface Loopback0
+!
+route-map rib-to-ospf permit 10
+ match ip address prefix-list rib-to-ospf
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+        <interface id="4" name="GigabitEthernet6"/>
+    </node>
+    <node name="R9" type="SIMPLE" subtype="CSR1000v" location="290,247">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:39:16 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R9
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9Q6YOKCA6VG
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$6DOp$BevWVbMG9J/I5/jEMec5v.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.9 255.255.255.255
+ ip ospf 1009 area 0.0.0.0
+!
+interface GigabitEthernet1
+ ip address 10.255.0.54 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.197.9 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.109.9 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 1009 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.19.9 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 1009 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet5
+ no ip address
+ negotiation auto
+!
+router ospf 1009
+ router-id 9.9.1.9
+ auto-cost reference-bandwidth 2000
+ area 0.0.0.0 authentication message-digest
+ redistribute connected metric-type 1 subnets route-map connect-to-ospf-export
+ passive-interface Loopback0
+ distribute-list route-map rib-to-ospf in
+ mpls ldp autoconfig
+!
+router bgp 1009
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 1009
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.9
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.1 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.6 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+ip prefix-list rib-to-ospf seq 10 permit 0.0.0.0/0 le 32
+!
+!
+route-map connect-to-ospf-export permit 10
+ match interface Loopback0
+!
+route-map rib-to-ospf permit 10
+ match ip address prefix-list rib-to-ospf
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+    </node>
+    <node name="R24" type="SIMPLE" subtype="CSR1000v" location="289,117">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:38:30 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R24
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9X7M3DJ0OTY
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$flu3$suSSDbv9VlECHshAseukK0
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.24 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.47 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 192.9.214.14 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+    </node>
+    <node name="R18" type="SIMPLE" subtype="CSR1000v" location="152,400">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 03:43:02 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition AS178-112-SB
+ rd 178:2
+ !
+ address-family ipv4
+  route-target export 178:2
+  route-target import 178:2
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 178:2
+  route-target import 178:2
+ exit-address-family
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp neighbor 9.9.1.17 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9B8NWFQWN2M
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$gyDi$OZqxwDG9DBG5gKOMv/wGN0
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.18 255.255.255.255
+ ip ospf 178 area 0.0.0.0
+!
+interface GigabitEthernet1
+ ip address 10.255.0.40 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ vrf forwarding AS178-112-SB
+ ip address 172.9.189.18 255.255.255.0
+ negotiation auto
+ ipv6 address 2001:172:9:189::18/64
+!
+interface GigabitEthernet3
+ ip address 9.9.178.18 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 178 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.108.18 255.255.255.0
+ negotiation auto
+!
+!
+router eigrp 178
+ !
+ address-family ipv4 vrf AS178-112-SB autonomous-system 178
+  redistribute bgp 178 metric 100000 1 255 1 1500
+  network 172.9.0.0
+ exit-address-family
+!
+router ospf 178
+ router-id 9.9.1.18
+ area 0.0.0.0 authentication message-digest
+ redistribute connected metric-type 1 subnets route-map connect-to-ospf-export
+ passive-interface Loopback0
+ distribute-list route-map rib-to-ospf in
+ mpls ldp autoconfig
+!
+router bgp 178
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 178
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.18
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.17 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.17 activate
+  neighbor 9.9.1.17 send-community extended
+  neighbor 9.9.1.17 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.17 activate
+  neighbor 9.9.1.17 send-community extended
+  neighbor 9.9.1.17 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+ !
+ address-family ipv4 vrf AS178-112-SB
+  redistribute eigrp 178
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+ip prefix-list rib-to-ospf seq 10 permit 0.0.0.0/0 le 32
+!
+!
+route-map connect-to-ospf-export permit 10
+ match interface Loopback0
+!
+route-map rib-to-ospf permit 10
+ match ip address prefix-list rib-to-ospf
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R17" type="SIMPLE" subtype="CSR1000v" location="153,247">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 03:38:59 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R17
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition AS178-112-NB
+ rd 178:1
+ !
+ address-family ipv4
+  route-target export 178:1
+  route-target import 178:1
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 178:1
+  route-target import 178:1
+ exit-address-family
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp neighbor 9.9.1.18 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9AMTPMR2TXZ
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$ov0h$mX6b4D1ZBPiDUCEII7JDu0
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.17 255.255.255.255
+ ip ospf 178 area 0.0.0.0
+!
+interface GigabitEthernet1
+ ip address 10.255.0.39 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ vrf forwarding AS178-112-NB
+ ip address 172.9.179.17 255.255.255.0
+ negotiation auto
+ ipv6 address 2001:172:9:179::17/64
+!
+interface GigabitEthernet3
+ ip address 9.9.178.17 255.255.255.0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 cisco123ospf
+ ip ospf network point-to-point
+ ip ospf 178 area 0.0.0.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.197.17 255.255.255.0
+ negotiation auto
+!
+router ospf 178
+ router-id 9.9.1.17
+ area 0.0.0.0 authentication message-digest
+ redistribute connected metric-type 1 subnets route-map connect-to-ospf-export
+ passive-interface Loopback0
+ distribute-list route-map rib-to-ospf in
+ mpls ldp autoconfig
+!
+router rip
+ !
+ address-family ipv4 vrf AS178-112-NB
+  redistribute bgp 178 metric 5
+  network 172.9.0.0
+  no auto-summary
+  version 2
+ exit-address-family
+!
+router bgp 178
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 178
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.17
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.18 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.18 activate
+  neighbor 9.9.1.18 send-community extended
+  neighbor 9.9.1.18 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.18 activate
+  neighbor 9.9.1.18 send-community extended
+  neighbor 9.9.1.18 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+ !
+ address-family ipv4 vrf AS178-112-NB
+  redistribute rip metric 5
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+ip prefix-list rib-to-ospf seq 10 permit 0.0.0.0/0 le 32
+!
+!
+route-map connect-to-ospf-export permit 10
+ match interface Loopback0
+!
+route-map rib-to-ospf permit 10
+ match ip address prefix-list rib-to-ospf
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R19" type="SIMPLE" subtype="CSR1000v" location="30,310">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 03:35:53 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R19
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9VWAOK7VZAG
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$Eo7k$riIq2Ml3Wknxb4XlMBtuw/
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.19 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.41 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 172.9.179.19 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 172.9.189.19 255.255.255.0
+ negotiation auto
+!
+!
+router eigrp 178
+ network 9.0.0.0
+ network 172.9.0.0
+!
+router rip
+ version 2
+ network 9.0.0.0
+ network 172.9.0.0
+ no auto-summary
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="R8" type="SIMPLE" subtype="CSR1000v" location="964,400">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:39:10 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R8
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp neighbor 9.9.1.4 password cisco123ldp
+mpls ldp neighbor 9.9.1.7 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+key chain ISISHELLO
+ key 1
+  key-string cisco123hello
+key chain ISISLSP
+ key 1
+  key-string cisco123lsp
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 96R8AMN2Z48
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$mMPx$gCB5218/saaayZTyMW4iH0
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.8 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.53 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.78.8 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+interface GigabitEthernet3
+ ip address 9.9.48.8 255.255.255.0
+ ip router isis as9-isis
+ negotiation auto
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+!
+interface GigabitEthernet4
+ ip address 9.9.128.8 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet5
+ no ip address
+ negotiation auto
+!
+router isis as9-isis
+ net 49.0009.0000.0000.0008.00
+ is-type level-2-only
+ advertise passive-only
+ authentication mode md5
+ authentication key-chain ISISLSP
+ metric-style wide
+ passive-interface Loopback0
+ mpls ldp autoconfig
+!
+router bgp 9
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 9
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.8
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.2 inherit peer-session IBGP-VPNV4-UN
+ neighbor 9.9.1.5 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+    </node>
+    <node name="R22" type="SIMPLE" subtype="CSR1000v" location="1096,399">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:38:15 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R22
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9FDFTFJDWVP
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$o6rd$8j5cZTPg2OOnHZypfhQBR.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.22 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.45 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 192.9.223.22 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+    </node>
+    <node name="R23" type="SIMPLE" subtype="CSR1000v" location="589,566">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:38:21 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R23
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9WPWDRQJ24Z
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$f2nN$/L1UZr7PeNd.YxM.um85f/
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.23 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.46 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 192.9.223.23 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+    </node>
+    <node name="R11" type="SIMPLE" subtype="CSR1000v" location="786,532">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:48:12 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R11
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls label protocol ldp
+mpls ldp password required
+mpls ldp neighbor 9.9.1.12 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 92BHDYXCO1N
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$RsJT$uDCfMXPu3j5XzNq1kozeW0
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.11 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.33 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.114.11 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.112.11 255.255.255.0
+ negotiation auto
+ mpls ip
+!
+interface GigabitEthernet4
+ ip address 172.9.113.11 255.255.255.0
+ negotiation auto
+!
+!
+router eigrp 112
+ network 9.9.1.11 0.0.0.0
+ network 9.9.112.0 0.0.0.255
+ eigrp router-id 9.9.1.11
+!
+router bgp 112
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 112
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.11
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.12 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.12 activate
+  neighbor 9.9.1.12 send-community extended
+  neighbor 9.9.1.12 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.12 activate
+  neighbor 9.9.1.12 send-community extended
+  neighbor 9.9.1.12 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R12" type="SIMPLE" subtype="CSR1000v" location="969,530">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:48:29 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R12
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls label protocol ldp
+mpls ldp password required
+mpls ldp neighbor 9.9.1.11 password cisco123ldp
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9GC3R2G6RJS
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$Vajg$d.Zy226gRkqVWMRx4CkzS/
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.12 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.34 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.128.12 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.112.12 255.255.255.0
+ negotiation auto
+ mpls ip
+!
+interface GigabitEthernet4
+ ip address 172.9.123.12 255.255.255.0
+ negotiation auto
+!
+!
+router eigrp 112
+ network 9.9.1.12 0.0.0.0
+ network 9.9.112.0 0.0.0.255
+ eigrp router-id 9.9.1.12
+!
+router bgp 112
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 112
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.12
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.11 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.11 activate
+  neighbor 9.9.1.11 send-community extended
+  neighbor 9.9.1.11 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.11 activate
+  neighbor 9.9.1.11 send-community extended
+  neighbor 9.9.1.11 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R13" type="SIMPLE" subtype="CSR1000v" location="880,633">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:37:01 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R13
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9YI70ZJWHBC
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$MMsM$CPDxdUqWNrGQtShRkmlR00
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.13 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.35 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 172.9.123.23 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 172.9.113.13 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="R14" type="SIMPLE" subtype="CSR1000v" location="783,105">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:45:20 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R14
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls label protocol ldp
+mpls ldp password required
+mpls ldp neighbor 9.9.1.15 password cisco123ldp 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 95CS2UIBKI2
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$NFn8$QUeBtbZlgZnMmZfDhMCJV.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.14 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.36 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.143.14 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.145.14 255.255.255.0
+ negotiation auto
+ mpls ip
+!
+interface GigabitEthernet4
+ ip address 172.9.146.14 255.255.255.0
+ negotiation auto
+!
+!
+router eigrp 112
+ network 9.9.1.14 0.0.0.0
+ network 9.9.145.0 0.0.0.255
+ eigrp router-id 9.9.1.14
+!
+router bgp 112
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 112
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.14
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.15 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.15 activate
+  neighbor 9.9.1.15 send-community extended
+  neighbor 9.9.1.15 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.15 activate
+  neighbor 9.9.1.15 send-community extended
+  neighbor 9.9.1.15 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R16" type="SIMPLE" subtype="CSR1000v" location="870,11">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:37:16 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R16
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 9LZF8BI3MN3
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$Nsjl$t0wgiQIoVD2bHhoPE7uhz0
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.16 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.38 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 172.9.146.16 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 172.9.156.16 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="R15" type="SIMPLE" subtype="CSR1000v" location="962,103">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 02:46:26 UTC Wed Sep 28 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console auto
+!
+hostname R15
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable secret 5 $1$4J1h$UoQ5IeISd4l5/Ux3ylbm/.
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+ip domain name dna.lab
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls label protocol ldp
+mpls ldp password required
+mpls ldp neighbor 9.9.1.14 password cisco123ldp 
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-3464458904
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-3464458904
+ revocation-check none
+ rsakeypair TP-self-signed-3464458904
+!
+!
+crypto pki certificate chain TP-self-signed-3464458904
+ certificate self-signed 01
+  30820330 30820218 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 33343634 34353839 3034301E 170D3136 30383331 32323431 
+  35365A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D33 34363434 
+  35383930 34308201 22300D06 092A8648 86F70D01 01010500 0382010F 00308201 
+  0A028201 01008A12 CB79B223 BE9602E7 AA346E37 FD4DB9EC 0007E0B0 06CE6A19 
+  A21076C5 FDE46922 49BDE5E3 448177E3 624605A6 DB0A3BA5 003433A4 7B2A348F 
+  3CA80675 5E789C7A A496D6E5 1C459E62 C55B15F1 E271E114 E8BCAC57 C42AF6A3 
+  0534576F 432FB2E9 60B29790 450F387C 1220CB8B AC6286A5 058863F9 7957019B 
+  572A9BA0 11780898 99A3E3B3 8D91E986 F6AED908 73691B25 976DEE5A B80875AB 
+  904ECCFE 57E5E449 34D75FFE C3CBF739 0D0C0B81 6574CFC6 786F9F10 7BC91593 
+  44106CB2 0539E585 6C27BD44 03DAAEB9 BE53164F 884FC98A A603BDC2 FB03E358 
+  01FD3684 D52D9B4D 19F22BEB 7399E094 B882CE54 BD6035AF F34F199F E7A392D2 
+  E6F82A2D 50350203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 
+  301F0603 551D2304 18301680 148246FD 1F41EBD8 4EA50641 ED7F4276 7780F174 
+  09301D06 03551D0E 04160414 8246FD1F 41EBD84E A50641ED 7F427677 80F17409 
+  300D0609 2A864886 F70D0101 05050003 82010100 2C1DFA76 058318CD F4CAA397 
+  11E9629C 5C3045A4 4DE1A5F3 3D3CB9CA 281A18F4 A82F7224 6A4FE9F9 E7F59BE7 
+  D3CAC9BD 49EC37F0 D0FDFA61 9E921A5D D8C5C5A0 5DF0F4B4 655E62F2 C11B748C 
+  CE63454D 7EF6DABF 024A56C7 6783EBCB AD8555FA 5C0B1D8B 87CAB208 BE93F134 
+  7A5B9062 C6FD388C CFD87613 099CC0A9 7B8EA0EB FCEE18B8 60790F71 149F81E0 
+  BE80ECB7 19CE2610 2B8773F7 45F518C8 AB7EFD84 286F2AB4 3EAEC912 A372C5DA 
+  E4756DDE 94C9800C F3F39FCB 44832911 7087419B FD016B18 41016CE2 272841B4 
+  EDE8685B 05D29C1A 32193C95 FB12C177 A6E60FCD E4EE7D74 F57B4977 553904A1 
+  A5DFBB59 B121CF4A 285EA2D8 EBD2771E 60B89159
+  	quit
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 937P4C7GSLE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+netconf-yang
+restconf
+!
+username cisco privilege 15 secret 5 $1$XpN2$qcL93LmU6Tm44ud8mUlOJ.
+username vagrant privilege 15 password 0 vagrant
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.15 255.255.255.255
+!
+interface GigabitEthernet1
+ ip address 10.255.0.37 255.255.0.0
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.9.157.15 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet3
+ ip address 9.9.145.15 255.255.255.0
+ negotiation auto
+ mpls ip
+!
+interface GigabitEthernet4
+ ip address 172.9.156.15 255.255.255.0
+ negotiation auto
+!
+!
+router eigrp 112
+ network 9.9.1.15 0.0.0.0
+ network 9.9.145.0 0.0.0.255
+ eigrp router-id 9.9.1.15
+!
+router bgp 112
+ template peer-policy IBGP-AF-VPNV4-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy IBGP-AF-VPNV6-UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session IBGP-VPNV4-UN
+  remote-as 112
+  password cisco123ibgp
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.15
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.14 inherit peer-session IBGP-VPNV4-UN
+ !
+ address-family vpnv4
+  neighbor 9.9.1.14 activate
+  neighbor 9.9.1.14 send-community extended
+  neighbor 9.9.1.14 inherit peer-policy IBGP-AF-VPNV4-UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.14 activate
+  neighbor 9.9.1.14 send-community extended
+  neighbor 9.9.1.14 inherit peer-policy IBGP-AF-VPNV6-UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip ssh pubkey-chain
+  username vagrant
+   key-hash ssh-rsa DD3BB82E850406E9ABFFA80AC0046ED6 
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ exec-timeout 0 0
+ logging synchronous
+ transport preferred none
+ stopbits 1
+line vty 0 4
+ login local
+!
+netconf ssh
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R4" type="SIMPLE" subtype="IOS XRv" location="786,403">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Wed Sep 28 02:39:18 2016 by CVAC
+!
+hostname R4
+group as9-isis
+ router isis '.*'
+  interface 'Gig.*'
+   point-to-point
+   hello-password hmac-md5 encrypted 104D000A061843595F0C2F272827
+   address-family ipv4 unicast
+   !
+  !
+  interface 'Loopback0'
+   passive
+   address-family ipv4 unicast
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.4 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.9.45.6 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.9.34.4 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.9.48.4 255.255.255.0
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 9.9.114.4 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ shutdown
+!
+interface GigabitEthernet0/0/0/4.101
+ encapsulation dot1q 101
+!
+router isis as9-isis
+ apply-group as9-isis
+ is-type level-2-only
+ net 49.0009.0000.0000.0004.00
+ lsp-password hmac-md5 encrypted 13061E010803557878283B23
+ address-family ipv4 unicast
+  metric-style wide
+  advertise passive-only
+  mpls ldp auto-config
+ !
+ interface Loopback0
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+!
+router bgp 9
+ bgp router-id 9.9.1.4
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group IBGP-AF-IPV4-LU address-family ipv4 labeled-unicast
+ !
+ af-group IBGP-AF-VPNV4-UNICAST address-family vpnv4 unicast
+ !
+ af-group IBGP-AF-VPNV6-UNICAST address-family vpnv6 unicast
+ !
+ session-group IBGP-VPNV4-UN
+  remote-as 9
+  password encrypted 030752180500701E1D001B0207
+  update-source Loopback0
+ !
+ neighbor-group AS9-IBGP
+  use session-group IBGP-VPNV4-UN
+  address-family vpnv4 unicast
+   use af-group IBGP-AF-VPNV4-UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group IBGP-AF-VPNV6-UNICAST
+  !
+ !
+ neighbor 9.9.1.2
+  use neighbor-group AS9-IBGP
+ !
+ neighbor 9.9.1.5
+  use neighbor-group AS9-IBGP
+ !
+!
+mpls ldp
+ router-id 9.9.1.4
+ neighbor
+  password encrypted 104D000A061843595F082E3B
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+        <interface id="4" name="GigabitEthernet0/0/0/4"/>
+    </node>
+    <node name="R3" type="SIMPLE" subtype="IOS XRv" location="783,248">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Wed Sep 28 02:39:11 2016 by CVAC
+!
+hostname R3
+group as9-isis
+ router isis '.*'
+  interface 'Gig.*'
+   point-to-point
+   hello-password hmac-md5 encrypted 00071A1507545A545C2949420516
+   address-family ipv4 unicast
+   !
+  !
+  interface 'Loopback0'
+   passive
+   address-family ipv4 unicast
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.3 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.9.23.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.9.34.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.9.35.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 9.9.37.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ ipv4 address 9.9.143.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/5
+ shutdown
+!
+interface GigabitEthernet0/0/0/5.101
+ encapsulation dot1q 101
+!
+router isis as9-isis
+ apply-group as9-isis
+ is-type level-2-only
+ net 49.0009.0000.0000.0003.00
+ lsp-password hmac-md5 encrypted 030752180500701E1D050A15
+ address-family ipv4 unicast
+  metric-style wide
+  advertise passive-only
+  mpls ldp auto-config
+ !
+ interface Loopback0
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+ interface GigabitEthernet0/0/0/3
+ !
+!
+router bgp 9
+ bgp router-id 9.9.1.3
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group IBGP-AF-IPV4-LU address-family ipv4 labeled-unicast
+ !
+ af-group IBGP-AF-VPNV4-UNICAST address-family vpnv4 unicast
+ !
+ af-group IBGP-AF-VPNV6-UNICAST address-family vpnv6 unicast
+ !
+ session-group IBGP-VPNV4-UN
+  remote-as 9
+  password encrypted 1511021F07257A767B3A372503
+  update-source Loopback0
+ !
+ neighbor-group AS9-IBGP
+  use session-group IBGP-VPNV4-UN
+  address-family vpnv4 unicast
+   use af-group IBGP-AF-VPNV4-UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group IBGP-AF-VPNV6-UNICAST
+  !
+ !
+ neighbor 9.9.1.2
+  use neighbor-group AS9-IBGP
+ !
+ neighbor 9.9.1.5
+  use neighbor-group AS9-IBGP
+ !
+!
+mpls ldp
+ router-id 9.9.1.3
+ neighbor
+  password encrypted 05080F1C22431F5B4A091302
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+        <interface id="4" name="GigabitEthernet0/0/0/4"/>
+        <interface id="5" name="GigabitEthernet0/0/0/5"/>
+    </node>
+    <node name="R2" type="SIMPLE" subtype="IOS XRv" location="589,248">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Wed Sep 28 02:38:28 2016 by CVAC
+!
+hostname R2
+group as9-isis
+ router isis '.*'
+  interface 'Gig.*'
+   point-to-point
+   hello-password hmac-md5 encrypted 02050D4808095E731F460C150918
+   address-family ipv4 unicast
+   !
+  !
+  interface 'Loopback0'
+   passive
+   address-family ipv4 unicast
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.2 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.9.12.2 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.9.25.25 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.9.23.2 255.255.255.0
+!
+router isis as9-isis
+ apply-group as9-isis
+ set-overload-bit
+ is-type level-2-only
+ net 49.0009.0000.0000.0002.00
+ lsp-password hmac-md5 encrypted 1511021F07257A767B3F2632
+ address-family ipv4 unicast
+  metric-style wide
+  advertise passive-only
+  mpls ldp auto-config
+ !
+ interface Loopback0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+!
+router bgp 9
+ bgp router-id 9.9.1.2
+ bgp cluster-id 9
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group IBGP-AF-IPV4-LU address-family ipv4 labeled-unicast
+  route-reflector-client
+ !
+ af-group IBGP-AF-VPNV4-UNICAST address-family vpnv4 unicast
+  route-reflector-client
+ !
+ af-group IBGP-AF-VPNV6-UNICAST address-family vpnv6 unicast
+  route-reflector-client
+ !
+ session-group IBGP-VPNV4-UN
+  remote-as 9
+  password encrypted 14141B180F0B7B797721313232
+  update-source Loopback0
+ !
+ neighbor-group AS9-IBGP
+  use session-group IBGP-VPNV4-UN
+  address-family vpnv4 unicast
+   use af-group IBGP-AF-VPNV4-UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group IBGP-AF-VPNV6-UNICAST
+  !
+ !
+ neighbor 9.9.1.3
+  use neighbor-group AS9-IBGP
+ !
+ neighbor 9.9.1.4
+  use neighbor-group AS9-IBGP
+ !
+ neighbor 9.9.1.7
+  use neighbor-group AS9-IBGP
+ !
+ neighbor 9.9.1.8
+  use neighbor-group AS9-IBGP
+ !
+!
+mpls ldp
+ router-id 9.9.1.2
+ neighbor
+  password encrypted 02050D4808095E731F420D09
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+    </node>
+    <node name="R1" type="SIMPLE" subtype="IOS XRv" location="443,250">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Wed Sep 28 02:37:12 2016 by CVAC
+!
+hostname R1
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.1 255.255.255.255
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.9.109.9 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.9.19.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.9.12.1 255.255.255.0
+!
+route-policy rib-to-ospf
+  if destination in (0.0.0.0/0 le 32) then
+    pass
+  endif
+end-policy
+!
+route-policy connect-to-ospf-export
+  if destination in (9.9.1.1/32) then
+    pass
+  endif
+end-policy
+!
+router ospf 1009
+ router-id 9.9.1.1
+ distribute-list route-policy rib-to-ospf in
+ mpls ldp auto-config
+ auto-cost reference-bandwidth 2000
+ redistribute connected metric-type 1 route-policy connect-to-ospf-export
+ area 0.0.0.0
+  authentication message-digest
+  interface Loopback0
+   passive enable
+  !
+  interface GigabitEthernet0/0/0/0
+   authentication message-digest
+   message-digest-key 1 md5 encrypted 1511021F07257A767B3C263215
+   network point-to-point
+  !
+  interface GigabitEthernet0/0/0/1
+   authentication message-digest
+   message-digest-key 1 md5 encrypted 05080F1C22431F5B4A0A04020D
+   network point-to-point
+  !
+ !
+!
+router bgp 1009
+ bgp router-id 9.9.1.1
+ bgp cluster-id 1009
+ address-family ipv4 unicast
+ !
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group IBGP-AF-IPV4-LU address-family ipv4 labeled-unicast
+  route-reflector-client
+ !
+ af-group IBGP-AF-VPNV4-UNICAST address-family vpnv4 unicast
+  route-reflector-client
+ !
+ af-group IBGP-AF-VPNV6-UNICAST address-family vpnv6 unicast
+  route-reflector-client
+ !
+ session-group IBGP-VPNV4-UN
+  remote-as 1009
+  password encrypted 060506324F41584B561E100C1C
+  update-source Loopback0
+ !
+ neighbor-group AS1009-IBGP
+  use session-group IBGP-VPNV4-UN
+  address-family vpnv4 unicast
+   use af-group IBGP-AF-VPNV4-UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group IBGP-AF-VPNV6-UNICAST
+  !
+ !
+ neighbor 9.9.1.9
+  use neighbor-group AS1009-IBGP
+ !
+ neighbor 9.9.1.10
+  use neighbor-group AS1009-IBGP
+ !
+!
+mpls ldp
+ router-id 9.9.1.1
+ neighbor
+  password encrypted 0822455D0A16544541070814
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+    </node>
+    <node name="SW2" type="SIMPLE" subtype="IOSvL2" location="663,130">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 03:45:16 UTC Wed Sep 28 2016
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport access vlan 101
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!
+interface Vlan101
+ no ip address
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <node name="SW3" type="SIMPLE" subtype="IOSvL2" location="665,531">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 03:45:16 UTC Wed Sep 28 2016
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport access vlan 101
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!
+interface Vlan101
+ no ip address
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[1]" src="/virl:topology/virl:node[11]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[1]" src="/virl:topology/virl:node[11]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[2]" src="/virl:topology/virl:node[10]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[10]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[9]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[2]" src="/virl:topology/virl:node[7]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[1]" src="/virl:topology/virl:node[6]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[24]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[24]/virl:interface[2]" src="/virl:topology/virl:node[7]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[1]" src="/virl:topology/virl:node[6]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[2]" src="/virl:topology/virl:node[6]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[8]/virl:interface[1]" src="/virl:topology/virl:node[7]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[23]/virl:interface[1]" src="/virl:topology/virl:node[24]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[14]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[3]" src="/virl:topology/virl:node[23]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[22]/virl:interface[1]" src="/virl:topology/virl:node[23]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[21]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[22]/virl:interface[2]" src="/virl:topology/virl:node[21]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[22]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[22]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[12]/virl:interface[1]" src="/virl:topology/virl:node[2]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[21]/virl:interface[3]" src="/virl:topology/virl:node[12]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[20]/virl:interface[1]" src="/virl:topology/virl:node[2]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[18]/virl:interface[1]" src="/virl:topology/virl:node[22]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[20]/virl:interface[2]" src="/virl:topology/virl:node[18]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[19]/virl:interface[1]" src="/virl:topology/virl:node[18]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[20]/virl:interface[3]" src="/virl:topology/virl:node[19]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[15]/virl:interface[1]" src="/virl:topology/virl:node[21]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[16]/virl:interface[1]" src="/virl:topology/virl:node[12]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[16]/virl:interface[2]" src="/virl:topology/virl:node[15]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[16]/virl:interface[3]" src="/virl:topology/virl:node[17]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[15]/virl:interface[3]" src="/virl:topology/virl:node[17]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[13]/virl:interface[1]" src="/virl:topology/virl:node[12]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[1]" src="/virl:topology/virl:node[2]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[25]/virl:interface[1]" src="/virl:topology/virl:node[22]/virl:interface[6]"/>
+    <connection dst="/virl:topology/virl:node[26]/virl:interface[1]" src="/virl:topology/virl:node[21]/virl:interface[5]"/>
+</topology>
