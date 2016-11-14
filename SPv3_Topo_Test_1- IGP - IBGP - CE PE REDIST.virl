@@ -1,0 +1,4717 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.9" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.9/virl.xsd">
+    <node name="CSR5" type="SIMPLE" subtype="CSR1000v" location="730,411">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:15 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R5
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback LDP
+mpls ldp label
+ allocate global host-routes
+mpls traffic-eng tunnels
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+key chain ISISHELLO
+ key 1
+  key-string HELLO
+key chain ISISLSP
+ key 1
+  key-string LSP
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.5 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:5/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.4.5.5 255.255.255.0
+ ip pim sparse-mode
+ ip router isis 9
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet3
+ ip address 9.2.5.5 255.255.255.0
+ ip pim sparse-mode
+ ip router isis 9
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet4
+ ip address 9.3.5.5 255.255.255.0
+ ip pim sparse-mode
+ ip router isis 9
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet5
+ ip address 9.5.6.5 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:5:6:0/127
+!
+interface GigabitEthernet6
+ no ip address
+ negotiation auto
+!
+router isis 9
+ net 49.0001.0000.0000.0005.00
+ is-type level-2-only
+ advertise passive-only
+ authentication mode md5
+ authentication key-chain ISISLSP
+ metric-style wide
+ log-adjacency-changes
+ passive-interface Loopback0
+ mpls ldp autoconfig
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng level-2
+ mpls traffic-eng multicast-intact
+!
+router bgp 9
+ template peer-policy VPNV4_UNICAST
+  route-reflector-client
+ exit-peer-policy
+ !
+ template peer-policy VPNV6_UNICAST
+  route-reflector-client
+ exit-peer-policy
+ !
+ template peer-session AS9_IBGP
+  remote-as 9
+  password IBGP
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.5
+ bgp cluster-id 9.9.1.2
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.2 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.3 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.4 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.7 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.8 inherit peer-session AS9_IBGP
+ !
+ address-family vpnv4
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.3 activate
+  neighbor 9.9.1.3 send-community extended
+  neighbor 9.9.1.3 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.4 activate
+  neighbor 9.9.1.4 send-community extended
+  neighbor 9.9.1.4 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.7 activate
+  neighbor 9.9.1.7 send-community extended
+  neighbor 9.9.1.7 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.8 activate
+  neighbor 9.9.1.8 send-community extended
+  neighbor 9.9.1.8 inherit peer-policy VPNV4_UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.3 activate
+  neighbor 9.9.1.3 send-community extended
+  neighbor 9.9.1.3 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.4 activate
+  neighbor 9.9.1.4 send-community extended
+  neighbor 9.9.1.4 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.7 activate
+  neighbor 9.9.1.7 send-community extended
+  neighbor 9.9.1.7 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.8 activate
+  neighbor 9.9.1.8 send-community extended
+  neighbor 9.9.1.8 inherit peer-policy VPNV6_UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+        <interface id="4" name="GigabitEthernet6"/>
+    </node>
+    <node name="CSR6" type="SIMPLE" subtype="CSR1000v" location="523,409">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:16 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R6
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback LDP
+mpls ldp label
+ allocate global host-routes
+mpls traffic-eng tunnels
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.6 255.255.255.255
+ ip pim sparse-mode
+ ip ospf 99 area 0
+ ipv6 address ::9:9:1:6/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.6.10.6 255.255.255.0
+ ip pim sparse-mode
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 OSPF
+ ip ospf network point-to-point
+ ip ospf 99 area 0
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet3
+ ip address 9.1.6.6 255.255.255.0
+ ip pim sparse-mode
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 OSPF
+ ip ospf network point-to-point
+ ip ospf 99 area 0
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet4
+ ip address 9.5.6.6 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:5:6:1/127
+!
+router ospf 99
+ router-id 9.9.1.6
+ area 0 authentication message-digest
+ redistribute connected subnets route-map RM_CONN_TO_OSPF
+ passive-interface Loopback0
+ distribute-list route-map RM_RIB_TO_OSPF in
+ mpls ldp autoconfig
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng area 0
+ mpls traffic-eng multicast-intact
+!
+router bgp 99
+ template peer-policy VPNV4_UNICAST
+  route-reflector-client
+ exit-peer-policy
+ !
+ template peer-policy VPNV6_UNICAST
+  route-reflector-client
+ exit-peer-policy
+ !
+ template peer-session AS99_IBGP
+  remote-as 99
+  password IBGP
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.6
+ bgp cluster-id 9.9.1.6
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.1 inherit peer-session AS99_IBGP
+ neighbor 9.9.1.9 inherit peer-session AS99_IBGP
+ neighbor 9.9.1.10 inherit peer-session AS99_IBGP
+ !
+ address-family vpnv4
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.9 activate
+  neighbor 9.9.1.9 send-community extended
+  neighbor 9.9.1.9 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.10 activate
+  neighbor 9.9.1.10 send-community extended
+  neighbor 9.9.1.10 inherit peer-policy VPNV4_UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.9 activate
+  neighbor 9.9.1.9 send-community extended
+  neighbor 9.9.1.9 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.10 activate
+  neighbor 9.9.1.10 send-community extended
+  neighbor 9.9.1.10 inherit peer-policy VPNV6_UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+ip prefix-list PL_CONN_TO_OSPF seq 5 permit 9.9.1.6/32
+!
+ip prefix-list PL_RIB_TO_OSPF seq 5 permit 0.0.0.0/0 ge 32
+!
+!
+route-map RM_RIB_TO_OSPF permit 10
+ match ip address prefix-list PL_RIB_TO_OSPF
+!
+route-map RM_CONN_TO_OSPF permit 10
+ match ip address prefix-list PL_CONN_TO_OSPF
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="CSR17" type="SIMPLE" subtype="CSR1000v" location="189,255">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:21 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R17
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CUST_AS999
+ rd 909:999
+ !
+ address-family ipv4
+  route-target export 909:999
+  route-target import 909:999
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 909:999
+  route-target import 909:999
+ exit-address-family
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp label
+ allocate global host-routes
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.17 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:17/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ vrf forwarding CUST_AS999
+ ip address 9.17.19.17 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:17:19:0/127
+!
+interface GigabitEthernet3
+ ip address 9.17.18.17 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ ip address 9.9.17.17 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:9:17:1/127
+!
+router bgp 909
+ bgp router-id 9.9.1.17
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ !
+ address-family ipv4 vrf CUST_AS999
+  neighbor 9.17.19.19 remote-as 999
+  neighbor 9.17.19.19 password EBGP
+  neighbor 9.17.19.19 activate
+ exit-address-family
+ !
+ address-family ipv6 vrf CUST_AS999
+  neighbor ::9:17:19:1 remote-as 999
+  neighbor ::9:17:19:1 password EBGP
+  neighbor ::9:17:19:1 activate
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="CSR14" type="SIMPLE" subtype="CSR1000v" location="898,122">
+        <interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="CSR22" type="SIMPLE" subtype="CSR1000v" location="1204,408">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:15 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R22
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.22 255.255.255.255
+ ipv6 address ::9:9:1:22/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.8.22.22 255.255.255.0
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+    </node>
+    <node name="CSR19" type="SIMPLE" subtype="CSR1000v" location="71,320">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:25 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R19
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.19 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:19/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.17.19.19 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:17:19:1/127
+!
+interface GigabitEthernet3
+ ip address 9.18.19.19 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:18:19:1/127
+!
+router bgp 999
+ bgp router-id 9.9.1.19
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor ::9:17:19:0 remote-as 909
+ neighbor ::9:17:19:0 password EBGP
+ neighbor ::9:18:19:0 remote-as 909
+ neighbor ::9:18:19:0 password EBGP
+ neighbor 9.17.19.17 remote-as 909
+ neighbor 9.17.19.17 password EBGP
+ neighbor 9.18.19.18 remote-as 909
+ neighbor 9.18.19.18 password EBGP
+ !
+ address-family ipv4
+  network 9.9.1.19 mask 255.255.255.255
+  neighbor 9.17.19.17 activate
+  neighbor 9.18.19.18 activate
+ exit-address-family
+ !
+ address-family ipv6
+  network ::9:9:1:19/128
+  neighbor ::9:17:19:0 activate
+  neighbor ::9:18:19:0 activate
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="CSR13" type="SIMPLE" subtype="CSR1000v" location="984,656">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:22 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R13
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.13 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:13/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.11.13.13 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:11:13:1/127
+!
+interface GigabitEthernet3
+ ip address 9.12.13.13 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:12:13:1/127
+!
+!
+router eigrp AS109
+ !
+ address-family ipv4 unicast autonomous-system 109
+  !
+  topology base
+  exit-af-topology
+  network 9.9.1.13 0.0.0.0
+  network 9.11.13.13 0.0.0.0
+  network 9.12.13.13 0.0.0.0
+ exit-address-family
+ !
+ address-family ipv6 unicast autonomous-system 109
+  !
+  topology base
+  exit-af-topology
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="CSR2" type="SIMPLE" subtype="CSR1000v" location="727,256">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:16 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback LDP
+mpls ldp label
+ allocate global host-routes
+mpls traffic-eng tunnels
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+key chain ISISHELLO
+ key 1
+  key-string HELLO
+key chain ISISLSP
+ key 1
+  key-string LSP
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.2 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:2/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.2.3.2 255.255.255.0
+ ip pim sparse-mode
+ ip router isis 9
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet3
+ ip address 9.2.5.2 255.255.255.0
+ ip pim sparse-mode
+ ip router isis 9
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet4
+ ip address 9.1.2.2 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:1:2:1/127
+!
+router isis 9
+ net 49.0001.0000.0000.0002.00
+ is-type level-2-only
+ advertise passive-only
+ authentication mode md5
+ authentication key-chain ISISLSP
+ metric-style wide
+ log-adjacency-changes
+ passive-interface Loopback0
+ mpls ldp autoconfig
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng level-2
+ mpls traffic-eng multicast-intact
+!
+router bgp 9
+ template peer-policy VPNV4_UNICAST
+  route-reflector-client
+ exit-peer-policy
+ !
+ template peer-policy VPNV6_UNICAST
+  route-reflector-client
+ exit-peer-policy
+ !
+ template peer-session AS9_IBGP
+  remote-as 9
+  password IBGP
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.2
+ bgp cluster-id 9.9.1.2
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.3 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.4 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.5 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.7 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.8 inherit peer-session AS9_IBGP
+ !
+ address-family vpnv4
+  neighbor 9.9.1.3 activate
+  neighbor 9.9.1.3 send-community extended
+  neighbor 9.9.1.3 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.4 activate
+  neighbor 9.9.1.4 send-community extended
+  neighbor 9.9.1.4 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.7 activate
+  neighbor 9.9.1.7 send-community extended
+  neighbor 9.9.1.7 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.8 activate
+  neighbor 9.9.1.8 send-community extended
+  neighbor 9.9.1.8 inherit peer-policy VPNV4_UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.3 activate
+  neighbor 9.9.1.3 send-community extended
+  neighbor 9.9.1.3 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.4 activate
+  neighbor 9.9.1.4 send-community extended
+  neighbor 9.9.1.4 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.7 activate
+  neighbor 9.9.1.7 send-community extended
+  neighbor 9.9.1.7 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.8 activate
+  neighbor 9.9.1.8 send-community extended
+  neighbor 9.9.1.8 inherit peer-policy VPNV6_UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="CSR10" type="SIMPLE" subtype="CSR1000v" location="371,410">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:22 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R10
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+mpls ldp password required
+mpls ldp password fallback LDP
+mpls ldp label
+ allocate global host-routes
+mpls traffic-eng tunnels
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.10 255.255.255.255
+ ip pim sparse-mode
+ ip ospf 99 area 0
+ ipv6 address ::9:9:1:10/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.6.10.10 255.255.255.0
+ ip pim sparse-mode
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 OSPF
+ ip ospf network point-to-point
+ ip ospf 99 area 0
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet3
+ ip address 9.9.10.10 255.255.255.0
+ ip pim sparse-mode
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 OSPF
+ ip ospf network point-to-point
+ ip ospf 99 area 0
+ negotiation auto
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet4
+ ip address 9.10.20.10 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:10:20:0/127
+!
+interface GigabitEthernet5
+ ip address 9.10.18.10 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:10:18:0/127
+!
+interface GigabitEthernet6
+ no ip address
+ negotiation auto
+!
+router ospf 99
+ router-id 9.9.1.10
+ area 0 authentication message-digest
+ redistribute connected subnets route-map RM_CONN_TO_OSPF
+ passive-interface Loopback0
+ distribute-list route-map RM_RIB_TO_OSPF in
+ mpls ldp autoconfig
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng area 0
+ mpls traffic-eng multicast-intact
+!
+router bgp 99
+ template peer-policy VPNV4_UNICAST
+ exit-peer-policy
+ !
+ template peer-policy VPNV6_UNICAST
+ exit-peer-policy
+ !
+ template peer-session AS99_IBGP
+  remote-as 99
+  password IBGP
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.10
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.1 inherit peer-session AS99_IBGP
+ neighbor 9.9.1.6 inherit peer-session AS99_IBGP
+ !
+ address-family vpnv4
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy VPNV4_UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy VPNV6_UNICAST
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+ip prefix-list PL_CONN_TO_OSPF seq 5 permit 9.9.1.10/32
+!
+ip prefix-list PL_RIB_TO_OSPF seq 5 permit 0.0.0.0/0 ge 32
+!
+!
+route-map RM_RIB_TO_OSPF permit 10
+ match ip address prefix-list PL_RIB_TO_OSPF
+!
+route-map RM_CONN_TO_OSPF permit 10
+ match ip address prefix-list PL_CONN_TO_OSPF
+!
+mpls ldp router-id Loopback0
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+        <interface id="3" name="GigabitEthernet5"/>
+        <interface id="4" name="GigabitEthernet6"/>
+    </node>
+    <node name="CSR20" type="SIMPLE" subtype="CSR1000v" location="370,589">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:15 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R20
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.20 255.255.255.255
+ ipv6 address ::9:9:1:20/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.10.20.20 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:10:20:1/127
+!
+interface GigabitEthernet3
+ no ip address
+ negotiation auto
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+    </node>
+    <node name="CSR15" type="SIMPLE" subtype="CSR1000v" location="1053,121">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:22 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R15
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CUST_AS109
+ rd 109:109
+ !
+ address-family ipv4
+  route-target export 109:109
+  route-target import 109:109
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 109:109
+  route-target import 109:109
+ exit-address-family
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.15 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:15/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.7.15.15 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:7:15:1/127
+!
+interface GigabitEthernet3
+ ip address 9.14.15.15 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ vrf forwarding CUST_AS109
+ ip address 9.15.16.15 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:15:16:0/127
+ ospfv3 network point-to-point
+ ospfv3 109 ipv6 area 0
+ ospfv3 109 ipv4 area 0
+!
+router ospfv3 109
+ router-id 9.9.1.15
+ !
+ address-family ipv4 unicast vrf CUST_AS109
+  redistribute bgp 109
+  prefix-suppression
+ exit-address-family
+ !
+ address-family ipv6 unicast vrf CUST_AS109
+  redistribute bgp 109
+  prefix-suppression
+ exit-address-family
+!
+router bgp 109
+ bgp router-id 9.9.1.15
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor ::9:7:15:0 remote-as 9
+ neighbor 9.7.15.7 remote-as 9
+ !
+ address-family ipv4
+  redistribute connected route-map RM_REDIST_CONN_BGP
+  neighbor 9.7.15.7 activate
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute connected route-map RM_IPV6_REDIST_CONN_BGP
+  redistribute ospf 109 route-map RM_IPV6_REDIST_CONN_BGP
+  neighbor ::9:7:15:0 activate
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+ip prefix-list PL_REDIST_CONN_BGP seq 5 permit 0.0.0.0/0 ge 32
+!
+!
+ipv6 prefix-list PL_IPV6_REDIST_CONN_BGP seq 5 permit ::/0 ge 128
+!
+route-map RM_REDIST_CONN_BGP permit 10
+ match ip address prefix-list PL_REDIST_CONN_BGP
+!
+route-map RM_IPV6_REDIST_CONN_BGP permit 10
+ match ipv6 address prefix-list PL_IPV6_REDIST_CONN_BGP
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="CSR21" type="SIMPLE" subtype="CSR1000v" location="1193,260">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:15 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R21
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.21 255.255.255.255
+ ipv6 address ::9:9:1:21/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.7.21.21 255.255.255.0
+ negotiation auto
+ ipv6 address ::9:7:21:1/127
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+    </node>
+    <node name="XRv4" type="SIMPLE" subtype="IOS XRv" location="903,415">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Mon Nov 14 07:15:16 2016 by cisco
+!
+hostname R4
+group RSVP
+ rsvp
+  interface 'Gig.*'
+   bandwidth 1000000
+  !
+ !
+end-group
+group AS9_ISIS
+ router isis '.*'
+  interface 'Gig.*'
+   point-to-point
+   hello-password hmac-md5 encrypted 062E2A0D6061
+   address-family ipv4 unicast
+   !
+  !
+  interface 'Loopback0'
+   passive
+   address-family ipv4 unicast
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.4 255.255.255.255
+ ipv6 address ::9:9:1:4/128
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.4.5.4 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.4.8.4 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.3.4.4 255.255.255.0
+!
+interface GigabitEthernet0/0/0/3.101
+ encapsulation dot1q 101
+!
+interface GigabitEthernet0/0/0/4
+ ipv4 address 9.4.11.4 255.255.255.0
+ ipv6 address ::9:4:11:0/127
+!
+router isis 9
+ apply-group AS9_ISIS
+ is-type level-2-only
+ net 49.0001.0000.0000.0004.00
+ log adjacency changes
+ lsp-password hmac-md5 encrypted 022A376B
+ address-family ipv4 unicast
+  metric-style wide
+  advertise passive-only
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  mpls traffic-eng multicast-intact
+  mpls ldp auto-config
+ !
+ interface Loopback0
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+!
+router bgp 9
+ bgp router-id 9.9.1.4
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group VPNV4_UNICAST address-family vpnv4 unicast
+ !
+ af-group VPNV6_UNICAST address-family vpnv6 unicast
+ !
+ session-group AS9_IBGP
+  remote-as 9
+  password encrypted 022F267C3B
+  update-source Loopback0
+ !
+ neighbor-group IBGP
+  use session-group AS9_IBGP
+  address-family vpnv4 unicast
+   use af-group VPNV4_UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group VPNV6_UNICAST
+  !
+ !
+ neighbor 9.9.1.2
+  use neighbor-group IBGP
+ !
+ neighbor 9.9.1.5
+  use neighbor-group IBGP
+ !
+!
+rsvp
+ apply-group RSVP
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+!
+mpls traffic-eng
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+!
+mpls ldp
+ mldp
+  logging notifications
+ !
+ router-id 9.9.1.4
+ neighbor
+  password encrypted 143B363B
+ !
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+   !
+  !
+ !
+!
+multicast-routing
+ address-family ipv4
+  mdt source Loopback0
+  interface all enable
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+        <interface id="4" name="GigabitEthernet0/0/0/4"/>
+    </node>
+    <node name="XRv3" type="SIMPLE" subtype="IOS XRv" location="903,261">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Mon Nov 14 07:15:15 2016 by cisco
+!
+hostname R3
+group RSVP
+ rsvp
+  interface 'Gig.*'
+   bandwidth 1000000
+  !
+ !
+end-group
+group AS9_ISIS
+ router isis '.*'
+  interface 'Gig.*'
+   point-to-point
+   hello-password hmac-md5 encrypted 062E2A0D6061
+   address-family ipv4 unicast
+   !
+  !
+  interface 'Loopback0'
+   passive
+   address-family ipv4 unicast
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.3 255.255.255.255
+ ipv6 address ::9:9:1:3/128
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.2.3.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.3.7.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.3.4.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/3
+ ipv4 address 9.3.5.3 255.255.255.0
+!
+interface GigabitEthernet0/0/0/4
+ ipv4 address 9.3.14.3 255.255.255.0
+ ipv6 address ::9:3:14:0/127
+!
+interface GigabitEthernet0/0/0/5.101
+ encapsulation dot1q 101
+!
+router isis 9
+ apply-group AS9_ISIS
+ is-type level-2-only
+ net 49.0001.0000.0000.0003.00
+ log adjacency changes
+ lsp-password hmac-md5 encrypted 080D7F7E
+ address-family ipv4 unicast
+  metric-style wide
+  advertise passive-only
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  mpls traffic-eng multicast-intact
+  mpls ldp auto-config
+ !
+ interface Loopback0
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+ interface GigabitEthernet0/0/0/3
+ !
+!
+router bgp 9
+ bgp router-id 9.9.1.3
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group VPNV4_UNICAST address-family vpnv4 unicast
+ !
+ af-group VPNV6_UNICAST address-family vpnv6 unicast
+ !
+ session-group AS9_IBGP
+  remote-as 9
+  password encrypted 08086E6939
+  update-source Loopback0
+ !
+ neighbor-group IBGP
+  use session-group AS9_IBGP
+  address-family vpnv4 unicast
+   use af-group VPNV4_UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group VPNV6_UNICAST
+  !
+ !
+ neighbor 9.9.1.2
+  use neighbor-group IBGP
+ !
+ neighbor 9.9.1.5
+  use neighbor-group IBGP
+ !
+!
+rsvp
+ apply-group RSVP
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+ interface GigabitEthernet0/0/0/3
+ !
+!
+mpls traffic-eng
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+ interface GigabitEthernet0/0/0/2
+ !
+ interface GigabitEthernet0/0/0/3
+ !
+!
+mpls ldp
+ mldp
+  logging notifications
+ !
+ router-id 9.9.1.3
+ neighbor
+  password encrypted 11253D35
+ !
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+   !
+  !
+ !
+!
+multicast-routing
+ address-family ipv4
+  mdt source Loopback0
+  interface all enable
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+        <interface id="4" name="GigabitEthernet0/0/0/4"/>
+        <interface id="5" name="GigabitEthernet0/0/0/5"/>
+    </node>
+    <node name="XRv7" type="SIMPLE" subtype="IOS XRv" location="1054,261">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Mon Nov 14 07:15:17 2016 by cisco
+!
+hostname R7
+group RSVP
+ rsvp
+  interface 'Gig.*'
+   bandwidth 1000000
+  !
+ !
+end-group
+group AS9_ISIS
+ router isis '.*'
+  interface 'Gig.*'
+   point-to-point
+   hello-password hmac-md5 encrypted 132D323E2723
+   address-family ipv4 unicast
+   !
+  !
+  interface 'Loopback0'
+   passive
+   address-family ipv4 unicast
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.7 255.255.255.255
+ ipv6 address ::9:9:1:7/128
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.3.7.7 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.7.8.7 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.7.15.7 255.255.255.0
+ ipv6 address ::9:7:15:0/127
+!
+router isis 9
+ apply-group AS9_ISIS
+ is-type level-2-only
+ net 49.0001.0000.0000.0007.00
+ log adjacency changes
+ lsp-password hmac-md5 encrypted 0723127C
+ address-family ipv4 unicast
+  metric-style wide
+  advertise passive-only
+  mpls traffic-eng level-2-only
+  mpls traffic-eng router-id Loopback0
+  mpls traffic-eng multicast-intact
+  mpls ldp auto-config
+ !
+ interface Loopback0
+ !
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+!
+router bgp 9
+ bgp router-id 9.9.1.7
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group VPNV4_UNICAST address-family vpnv4 unicast
+ !
+ af-group VPNV6_UNICAST address-family vpnv6 unicast
+ !
+ session-group AS9_IBGP
+  remote-as 9
+  password encrypted 002D312134
+  update-source Loopback0
+ !
+ neighbor-group IBGP
+  use session-group AS9_IBGP
+  address-family vpnv4 unicast
+   use af-group VPNV4_UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group VPNV6_UNICAST
+  !
+ !
+ neighbor 9.9.1.2
+  use neighbor-group IBGP
+ !
+ neighbor 9.9.1.5
+  use neighbor-group IBGP
+ !
+!
+rsvp
+ apply-group RSVP
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+!
+mpls traffic-eng
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+!
+mpls ldp
+ mldp
+  logging notifications
+ !
+ router-id 9.9.1.7
+ neighbor
+  password encrypted 11253D35
+ !
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+   !
+  !
+ !
+!
+multicast-routing
+ address-family ipv4
+  mdt source Loopback0
+  interface all enable
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+        <interface id="3" name="GigabitEthernet0/0/0/3"/>
+    </node>
+    <node name="XRv1" type="SIMPLE" subtype="IOS XRv" location="523,258">
+        <extensions><entry key="config" type="String">!! IOS XR Configuration 6.0.1
+!! Last configuration change at Mon Nov 14 07:15:16 2016 by cisco
+!
+hostname R1
+group RSVP
+ rsvp
+  interface 'Gig.*'
+   bandwidth 1000000
+  !
+ !
+end-group
+group AS99_OSPF
+ router ospf '.*'
+  area '.*'
+   interface 'Gig.*'
+    authentication message-digest
+    message-digest-key 1 md5 encrypted 11262A3531
+    network point-to-point
+   !
+   interface 'Loopback0'
+    passive enable
+   !
+  !
+ !
+end-group
+cdp
+line console
+ exec-timeout 0 0
+!
+interface Loopback0
+ ipv4 address 9.9.1.1 255.255.255.255
+ ipv6 address ::9:9:1:1/128
+!
+interface MgmtEth0/0/CPU0/0
+ shutdown
+!
+interface GigabitEthernet0/0/0/0
+ ipv4 address 9.1.9.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/1
+ ipv4 address 9.1.6.1 255.255.255.0
+!
+interface GigabitEthernet0/0/0/2
+ ipv4 address 9.1.2.1 255.255.255.0
+ ipv6 address ::9:1:2:0/127
+!
+route-policy RPL_RIB_TO_OSPF
+  if destination in (0.0.0.0/0 ge 32) then
+    pass
+  endif
+end-policy
+!
+route-policy RPL_CONN_TO_OSPF
+  if destination in (9.9.1.1/32) then
+    pass
+  endif
+end-policy
+!
+router ospf 99
+ apply-group AS99_OSPF
+ log adjacency changes
+ router-id 9.9.1.1
+ distribute-list route-policy RPL_RIB_TO_OSPF in
+ redistribute connected metric-type 2 route-policy RPL_CONN_TO_OSPF
+ area 0
+  authentication message-digest
+  mpls ldp auto-config
+  mpls traffic-eng
+  interface Loopback0
+  !
+  interface GigabitEthernet0/0/0/0
+  !
+  interface GigabitEthernet0/0/0/1
+  !
+ !
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng multicast-intact
+!
+router bgp 99
+ bgp router-id 9.9.1.1
+ bgp cluster-id 9.9.1.6
+ address-family vpnv4 unicast
+ !
+ address-family vpnv6 unicast
+ !
+ af-group VPNV4_UNICAST address-family vpnv4 unicast
+ !
+ af-group VPNV6_UNICAST address-family vpnv6 unicast
+ !
+ session-group AS99_IBGP
+  remote-as 99
+  password encrypted 032D792C36
+  update-source Loopback0
+ !
+ neighbor-group IBGP
+  use session-group AS99_IBGP
+  address-family vpnv4 unicast
+   use af-group VPNV4_UNICAST
+  !
+  address-family vpnv6 unicast
+   use af-group VPNV6_UNICAST
+  !
+ !
+ neighbor 9.9.1.6
+  use neighbor-group IBGP
+ !
+ neighbor 9.9.1.9
+  use neighbor-group IBGP
+ !
+ neighbor 9.9.1.10
+  use neighbor-group IBGP
+ !
+!
+rsvp
+ apply-group RSVP
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+!
+mpls traffic-eng
+ interface GigabitEthernet0/0/0/0
+ !
+ interface GigabitEthernet0/0/0/1
+ !
+!
+mpls ldp
+ mldp
+  logging notifications
+ !
+ router-id 9.9.1.1
+ neighbor
+  password encrypted 10622D29
+ !
+ address-family ipv4
+  label
+   local
+    allocate for host-routes
+   !
+  !
+ !
+!
+multicast-routing
+ address-family ipv4
+  mdt source Loopback0
+  interface all enable
+ !
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/0/0/0"/>
+        <interface id="1" name="GigabitEthernet0/0/0/1"/>
+        <interface id="2" name="GigabitEthernet0/0/0/2"/>
+    </node>
+    <node name="CSR11" type="SIMPLE" subtype="CSR1000v" location="906,546">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:22 UTC Mon Nov 14 2016
+!
+version 16.3
+no service timestamps debug uptime
+no service timestamps log uptime
+no platform punt-keepalive disable-kernel-core
+platform console serial
+!
+hostname R11
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CUST_AS109
+ rd 109:109
+ !
+ address-family ipv4
+  route-target export 109:109
+  route-target import 109:109
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 109:109
+  route-target import 109:109
+ exit-address-family
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+!
+
+
+
+no ip domain lookup
+!
+!
+!
+ipv6 unicast-routing
+!
+!
+!
+!
+!
+!
+!
+subscriber templating
+!
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+
+
+!
+!
+!
+!
+!
+!
+!
+license udi pid CSR1000V sn 903J6D6TKGE
+diagnostic bootup level minimal
+!
+spanning-tree extend system-id
+!
+!
+redundancy
+!
+!
+!
+!
+!
+!
+ip tftp source-interface GigabitEthernet1
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+! 
+! 
+! 
+! 
+! 
+! 
+!
+!
+interface Loopback0
+ ip address 9.9.1.11 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:11/128
+!
+interface GigabitEthernet1
+ ip address dhcp
+ negotiation auto
+!
+interface GigabitEthernet2
+ ip address 9.4.11.11 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:4:11:1/127
+!
+interface GigabitEthernet3
+ ip address 9.11.12.11 255.255.255.0
+ negotiation auto
+!
+interface GigabitEthernet4
+ vrf forwarding CUST_AS109
+ ip address 9.11.13.11 255.255.255.0
+ ip pim sparse-mode
+ negotiation auto
+ ipv6 address ::9:11:13:0/127
+!
+!
+router eigrp AS109
+ !
+ address-family ipv4 unicast vrf CUST_AS109 autonomous-system 109
+  !
+  topology base
+   redistribute bgp 109 route-map RM_REDIST_BGP_INTO_EIGRP
+  exit-af-topology
+  network 9.11.13.11 0.0.0.0
+ exit-address-family
+ !
+ address-family ipv6 unicast vrf CUST_AS109 autonomous-system 109
+  !
+  topology base
+   redistribute bgp 109 route-map RM_REDIST_BGP_INTO_EIGRP_V6
+  exit-af-topology
+ exit-address-family
+!
+router bgp 109
+ bgp router-id 9.9.1.11
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor ::9:4:11:0 remote-as 9
+ neighbor 9.4.11.4 remote-as 9
+ !
+ address-family ipv4
+  redistribute connected route-map RM_REDIST_CONN_BGP
+  redistribute eigrp 109 route-map RM_REDIST_CONN_BGP
+  neighbor 9.4.11.4 activate
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute connected route-map RM_IPV6_REDIST_CONN_BGP
+  redistribute eigrp 109 route-map RM_IPV6_REDIST_CONN_BGP
+  neighbor ::9:4:11:0 activate
+ exit-address-family
+!
+!
+virtual-service csr_mgmt
+!
+ip forward-protocol nd
+no ip http server
+no ip http secure-server
+!
+!
+!
+ip prefix-list PL_REDIST_BGP_INTO_EIGRP seq 5 permit 0.0.0.0/0 ge 32
+!
+ip prefix-list PL_REDIST_CONN_BGP seq 5 permit 0.0.0.0/0 ge 32
+!
+!
+ipv6 prefix-list PL_IPV6_REDIST_CONN_BGP seq 5 permit ::/0 ge 128
+!
+ipv6 prefix-list PL_REDIST_BGP_INTO_EIGRP_V6 seq 5 permit ::/0 ge 128
+!
+route-map RM_REDIST_BGP_INTO_EIGRP permit 10
+ match ip address prefix-list PL_REDIST_BGP_INTO_EIGRP
+ set metric 100000 10 255 1 1500
+!
+route-map RM_REDIST_BGP_INTO_EIGRP permit 100
+!
+route-map RM_REDIST_CONN_BGP permit 10
+ match ip address prefix-list PL_REDIST_CONN_BGP
+!
+route-map RM_IPV6_REDIST_CONN_BGP permit 10
+ match ipv6 address prefix-list PL_IPV6_REDIST_CONN_BGP
+!
+route-map RM_REDIST_BGP_INTO_EIGRP_V6 permit 10
+ match ip address prefix-list PL_REDIST_BGP_INTO_EIGRP_V6
+ set metric 100000 10 255 1 1500
+!
+route-map RM_REDIST_BGP_INTO_EIGRP_V6 permit 100
+!
+!
+!
+control-plane
+!
+ !
+ !
+ !
+ !
+!
+!
+!
+!
+!
+line con 0
+ stopbits 1
+line vty 0
+ login
+line vty 1
+ login
+ length 0
+line vty 2 4
+ login
+!
+!
+!
+!
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet2"/>
+        <interface id="1" name="GigabitEthernet3"/>
+        <interface id="2" name="GigabitEthernet4"/>
+    </node>
+    <node name="R23" type="SIMPLE" subtype="IOSv" location="731,552">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:29 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R23
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.23 255.255.255.255
+ ipv6 address ::9:9:1:23/128
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <node name="R12" type="SIMPLE" subtype="IOSv" location="1059,544">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:22 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R12
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CUST_AS109
+ rd 109:109
+ !
+ address-family ipv4
+  route-target export 109:109
+  route-target import 109:109
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 109:109
+  route-target import 109:109
+ exit-address-family
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.12 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:12/128
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ ip address 9.8.12.12 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:8:12:1/127
+!
+interface GigabitEthernet0/2
+ ip address 9.11.12.12 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ vrf forwarding CUST_AS109
+ ip address 9.12.13.12 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:12:13:0/127
+!
+!
+router eigrp AS109
+ !
+ address-family ipv4 unicast vrf CUST_AS109 autonomous-system 109
+  !
+  topology base
+   redistribute bgp 109 route-map RM_REDIST_BGP_INTO_EIGRP
+  exit-af-topology
+  network 9.12.13.12 0.0.0.0
+ exit-address-family
+ !
+ address-family ipv6 unicast vrf CUST_AS109 autonomous-system 109
+  !
+  topology base
+   redistribute bgp 109 route-map RM_REDIST_BGP_INTO_EIGRP_V6
+  exit-af-topology
+ exit-address-family
+!
+router bgp 109
+ bgp router-id 9.9.1.12
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor ::9:8:12:0 remote-as 9
+ neighbor 9.8.12.8 remote-as 9
+ !
+ address-family ipv4
+  redistribute connected route-map RM_REDIST_CONN_BGP
+  redistribute eigrp 109 route-map RM_REDIST_CONN_BGP
+  neighbor 9.8.12.8 activate
+ exit-address-family
+ !
+ address-family ipv6
+  redistribute connected route-map RM_IPV6_REDIST_CONN_BGP
+  redistribute eigrp 109 route-map RM_IPV6_REDIST_CONN_BGP
+  neighbor ::9:8:12:0 activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+ip prefix-list PL_REDIST_BGP_INTO_EIGRP seq 5 permit 0.0.0.0/0 ge 32
+!
+ip prefix-list PL_REDIST_CONN_BGP seq 5 permit 0.0.0.0/0 ge 32
+!
+!
+ipv6 prefix-list PL_IPV6_REDIST_CONN_BGP seq 5 permit ::/0 ge 128
+!
+ipv6 prefix-list PL_REDIST_BGP_INTO_EIGRP_V6 seq 5 permit ::/0 ge 128
+route-map RM_REDIST_BGP_INTO_EIGRP permit 10
+ match ip address prefix-list PL_REDIST_BGP_INTO_EIGRP
+ set metric 100000 10 255 1 1500
+!
+route-map RM_REDIST_BGP_INTO_EIGRP permit 100
+!
+route-map RM_REDIST_CONN_BGP permit 10
+ match ip address prefix-list PL_REDIST_CONN_BGP
+!
+route-map RM_IPV6_REDIST_CONN_BGP permit 10
+ match ipv6 address prefix-list PL_IPV6_REDIST_CONN_BGP
+!
+route-map RM_REDIST_BGP_INTO_EIGRP_V6 permit 10
+ match ip address prefix-list PL_REDIST_BGP_INTO_EIGRP_V6
+ set metric 100000 10 255 1 1500
+!
+route-map RM_REDIST_BGP_INTO_EIGRP_V6 permit 100
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+        <interface id="2" name="GigabitEthernet0/3"/>
+    </node>
+    <node name="R16" type="SIMPLE" subtype="IOSv" location="974,15">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:22 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R16
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.16 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:16/128
+ ospfv3 109 ipv6 area 0
+ ospfv3 109 ipv4 area 0
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ ip address 9.14.16.16 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:14:16:1/127
+ ospfv3 network point-to-point
+ ospfv3 109 ipv6 area 0
+ ospfv3 109 ipv4 area 0
+!
+interface GigabitEthernet0/2
+ ip address 9.15.16.16 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:15:16:1/127
+ ospfv3 network point-to-point
+ ospfv3 109 ipv6 area 0
+ ospfv3 109 ipv4 area 0
+!
+router ospfv3 109
+ router-id 9.9.1.16
+ !
+ address-family ipv4 unicast
+  prefix-suppression
+ exit-address-family
+ !
+ address-family ipv6 unicast
+  prefix-suppression
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+    </node>
+    <node name="CSR18" type="SIMPLE" subtype="IOSv" location="189,412">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:25 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R18
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition CUST_AS999
+ rd 909:999
+ !
+ address-family ipv4
+  route-target export 909:999
+  route-target import 909:999
+ exit-address-family
+ !
+ address-family ipv6
+  route-target export 909:999
+  route-target import 909:999
+ exit-address-family
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.18 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:18/128
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ vrf forwarding CUST_AS999
+ ip address 9.18.19.18 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:18:19:0/127
+!
+interface GigabitEthernet0/2
+ ip address 9.17.18.18 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ ip address 9.10.18.18 255.255.255.0
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:10:18:1/127
+!
+router bgp 909
+ bgp router-id 9.9.1.18
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ !
+ address-family ipv4 vrf CUST_AS999
+  neighbor 9.18.19.19 remote-as 999
+  neighbor 9.18.19.19 password EBGP
+  neighbor 9.18.19.19 activate
+ exit-address-family
+ !
+ address-family ipv6 vrf CUST_AS999
+  neighbor ::9:18:19:1 remote-as 999
+  neighbor ::9:18:19:1 password EBGP
+  neighbor ::9:18:19:1 activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+        <interface id="2" name="GigabitEthernet0/3"/>
+    </node>
+    <node name="R24" type="SIMPLE" subtype="IOSv" location="370,127">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:27 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R24
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.24 255.255.255.255
+ ipv6 address ::9:9:1:24/128
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ ip address 9.9.24.24 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:9:24:1/127
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <node name="R9" type="SIMPLE" subtype="IOSv" location="375,255">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:27 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R9
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+mpls ldp password required
+mpls ldp password fallback LDP
+mpls traffic-eng tunnels
+!
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.9 255.255.255.255
+ ip pim sparse-mode
+ ip ospf 99 area 0
+ ipv6 address ::9:9:1:9/128
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ ip address 9.1.9.9 255.255.255.0
+ ip pim sparse-mode
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 OSPF
+ ip ospf network point-to-point
+ ip ospf 99 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet0/2
+ ip address 9.9.10.9 255.255.255.0
+ ip pim sparse-mode
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 OSPF
+ ip ospf network point-to-point
+ ip ospf 99 area 0
+ duplex auto
+ speed auto
+ media-type rj45
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet0/3
+ ip address 9.9.24.9 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:9:24:0/127
+!
+interface GigabitEthernet0/4
+ ip address 9.9.17.9 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:9:17:0/127
+!
+router ospf 99
+ mpls ldp autoconfig
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng area 0
+ mpls traffic-eng multicast-intact
+ router-id 9.9.1.9
+ area 0 authentication message-digest
+ redistribute connected subnets route-map RM_CONN_TO_OSPF
+ passive-interface Loopback0
+ distribute-list route-map RM_RIB_TO_OSPF in
+!
+router bgp 99
+ template peer-policy VPNV4_UNICAST
+ exit-peer-policy
+ !
+ template peer-policy VPNV6_UNICAST
+ exit-peer-policy
+ !
+ template peer-session AS99_IBGP
+  remote-as 99
+  password IBGP
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.9
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.1 inherit peer-session AS99_IBGP
+ neighbor 9.9.1.6 inherit peer-session AS99_IBGP
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy VPNV4_UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.1 activate
+  neighbor 9.9.1.1 send-community extended
+  neighbor 9.9.1.1 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.6 activate
+  neighbor 9.9.1.6 send-community extended
+  neighbor 9.9.1.6 inherit peer-policy VPNV6_UNICAST
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+ip prefix-list PL_CONN_TO_OSPF seq 5 permit 9.9.1.9/32
+!
+ip prefix-list PL_RIB_TO_OSPF seq 5 permit 0.0.0.0/0 ge 32
+!
+route-map RM_RIB_TO_OSPF permit 10
+ match ip address prefix-list PL_RIB_TO_OSPF
+!
+route-map RM_CONN_TO_OSPF permit 10
+ match ip address prefix-list PL_CONN_TO_OSPF
+!
+!
+mpls ldp router-id Loopback0
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+        <interface id="2" name="GigabitEthernet0/3"/>
+        <interface id="3" name="GigabitEthernet0/4"/>
+    </node>
+    <node name="SW2" type="SIMPLE" subtype="IOSvL2" location="795,166">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:23 UTC Mon Nov 14 2016
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport access vlan 101
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!
+interface Vlan101
+ no ip address
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <node name="SW3" type="SIMPLE" subtype="IOSvL2" location="815,524">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:23 UTC Mon Nov 14 2016
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW3
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ switchport access vlan 101
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!
+interface Vlan101
+ no ip address
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+!
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+    </node>
+    <node name="R8" type="SIMPLE" subtype="IOSv" location="1056,412">
+        <extensions><entry key="config" type="String">!
+! Last configuration change at 07:15:29 UTC Mon Nov 14 2016
+!
+version 15.6
+no service timestamps debug uptime
+no service timestamps log uptime
+no service password-encryption
+!
+hostname R8
+!
+boot-start-marker
+boot-end-marker
+!
+!
+enable password cisco
+!
+no aaa new-model
+ethernet lmi ce
+!
+!
+!
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+ipv6 unicast-routing
+ipv6 cef
+!
+multilink bundle-name authenticated
+mpls ldp password required
+mpls ldp password fallback LDP
+mpls traffic-eng tunnels
+!
+!
+!
+key chain ISISLSP
+ key 1
+  key-string LSP
+key chain ISISHELLO
+ key 1
+  key-string HELLO
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 9.9.1.8 255.255.255.255
+ ip pim sparse-mode
+ ipv6 address ::9:9:1:8/128
+!
+interface GigabitEthernet0/0
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ ip address 9.4.8.8 255.255.255.0
+ ip router isis 9
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet0/2
+ ip address 9.7.8.8 255.255.255.0
+ ip router isis 9
+ ip pim sparse-mode
+ duplex auto
+ speed auto
+ media-type rj45
+ no ipv6 pim
+ mpls traffic-eng tunnels
+ isis network point-to-point 
+ isis authentication mode md5
+ isis authentication key-chain ISISHELLO
+ ip rsvp bandwidth 1000000
+!
+interface GigabitEthernet0/3
+ ip address 9.8.12.8 255.255.255.0
+ duplex auto
+ speed auto
+ media-type rj45
+ ipv6 address ::9:8:12:0/127
+!
+interface GigabitEthernet0/4
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router isis 9
+ mpls ldp autoconfig
+ mpls traffic-eng router-id Loopback0
+ mpls traffic-eng level-2
+ mpls traffic-eng multicast-intact
+ net 49.0001.0000.0000.0008.00
+ is-type level-2-only
+ advertise passive-only
+ authentication mode md5
+ authentication key-chain ISISLSP
+ metric-style wide
+ log-adjacency-changes
+ passive-interface Loopback0
+!
+router bgp 9
+ template peer-policy VPNV4_UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-policy VPNV6_UNICAST
+  send-community extended
+ exit-peer-policy
+ !
+ template peer-session AS9_IBGP
+  remote-as 9
+  password IBGP
+  update-source Loopback0
+ exit-peer-session
+ !
+ bgp router-id 9.9.1.8
+ bgp log-neighbor-changes
+ no bgp default ipv4-unicast
+ neighbor 9.9.1.2 inherit peer-session AS9_IBGP
+ neighbor 9.9.1.5 inherit peer-session AS9_IBGP
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family vpnv4
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy VPNV4_UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy VPNV4_UNICAST
+ exit-address-family
+ !
+ address-family vpnv6
+  neighbor 9.9.1.2 activate
+  neighbor 9.9.1.2 send-community extended
+  neighbor 9.9.1.2 inherit peer-policy VPNV6_UNICAST
+  neighbor 9.9.1.5 activate
+  neighbor 9.9.1.5 send-community extended
+  neighbor 9.9.1.5 inherit peer-policy VPNV6_UNICAST
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+mpls ldp router-id Loopback0
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end</entry></extensions><interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+        <interface id="2" name="GigabitEthernet0/3"/>
+        <interface id="3" name="GigabitEthernet0/4"/>
+    </node>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[2]" src="/virl:topology/virl:node[21]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[21]/virl:interface[2]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[16]/virl:interface[1]" src="/virl:topology/virl:node[23]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[9]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[2]" src="/virl:topology/virl:node[16]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[2]" src="/virl:topology/virl:node[23]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[23]/virl:interface[3]" src="/virl:topology/virl:node[22]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[1]" src="/virl:topology/virl:node[9]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[14]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[13]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[13]/virl:interface[2]" src="/virl:topology/virl:node[26]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[14]/virl:interface[2]" src="/virl:topology/virl:node[15]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[26]/virl:interface[2]" src="/virl:topology/virl:node[15]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[13]/virl:interface[3]" src="/virl:topology/virl:node[14]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[2]" src="/virl:topology/virl:node[8]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[14]/virl:interface[4]" src="/virl:topology/virl:node[1]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[14]/virl:interface[5]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[15]/virl:interface[3]" src="/virl:topology/virl:node[11]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[11]/virl:interface[2]" src="/virl:topology/virl:node[4]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[3]" src="/virl:topology/virl:node[20]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[11]/virl:interface[3]" src="/virl:topology/virl:node[20]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[14]/virl:interface[6]" src="/virl:topology/virl:node[24]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[13]/virl:interface[4]" src="/virl:topology/virl:node[25]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[16]/virl:interface[3]" src="/virl:topology/virl:node[8]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[4]" src="/virl:topology/virl:node[2]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[23]/virl:interface[4]" src="/virl:topology/virl:node[3]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[4]" src="/virl:topology/virl:node[21]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[2]" src="/virl:topology/virl:node[9]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[17]/virl:interface[1]" src="/virl:topology/virl:node[13]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[19]/virl:interface[1]" src="/virl:topology/virl:node[26]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[19]/virl:interface[2]" src="/virl:topology/virl:node[17]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[17]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[2]" src="/virl:topology/virl:node[19]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[12]/virl:interface[1]" src="/virl:topology/virl:node[15]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[1]" src="/virl:topology/virl:node[26]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[18]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[5]"/>
+</topology>
